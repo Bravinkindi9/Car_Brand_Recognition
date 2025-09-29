@@ -74,3 +74,6 @@ The front-end is configured to communicate with the following endpoint:
 | :--- | :--- | :--- |
 | **POST** | `/predict` | Receives a `multipart/form-data` image file and returns classification results. |
 | **GET** | `/` | Base health check (handled by Uvicorn/FastAPI). |
+
+![Screenshot of the Image Analyzer App](C:/Users/USER/Desktop/Projects_git/car_reco/results.png)
+
