@@ -1,70 +1,71 @@
-# Getting Started with Create React App
+# 🖼️ Image Classification API & Web Portal
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This project provides a full-stack solution for image classification. It features a modern, responsive **React (JSX)** frontend built with **Tailwind CSS** for an aesthetic dark-mode look, and a high-performance **FastAPI** backend designed to serve a machine learning model (e.g., a TensorFlow/Keras image classifier).
 
-## Available Scripts
+## 🚀 Key Features
 
-In the project directory, you can run:
+* **FastAPI Backend:** High-speed asynchronous server for handling file uploads and model inference.
+* **Image Preprocessing:** Handles image file reception (`multipart/form-data`) and prepares it for the model.
+* **React Frontend:** Clean, modern, single-page application (SPA) for file upload, preview, and results display.
+* **Tailwind CSS:** Fully responsive, dark-theme UI for a polished, professional user experience.
 
-### `npm start`
+## 🛠️ Technology Stack
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+| Component | Technology | Role |
+| :--- | :--- | :--- |
+| **Frontend** | `React.js` (with JSX) | User Interface and state management. |
+| **Styling** | `Tailwind CSS` | Utility-first framework for rapid, responsive design. |
+| **API Client** | `axios` | Asynchronous HTTP requests from frontend to backend. |
+| **Backend** | `FastAPI` / `Uvicorn` | High-performance Python web framework for API endpoints. |
+| **Machine Learning**| `TensorFlow` / `Keras` | Image classification model serving (implicitly used). |
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+## 📦 Getting Started
 
-### `npm test`
+Follow these steps to set up and run the entire application.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### Prerequisites
 
-### `npm run build`
+You need the following installed on your system:
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+* Python (3.7+)
+* Node.js (LTS version)
+* npm (comes with Node.js)
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+### 1. Backend Setup (FastAPI)
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+1.  **Navigate to the backend directory:**
+    ```bash
+    cd C:\Users\USER\Desktop\Projects_git\Model_API
+    ```
+2.  **Install dependencies:**
+    *(Assuming you have a `requirements.txt` or similar file listing `fastapi`, `uvicorn`, `tensorflow`, etc.)*
+    ```bash
+    pip install -r requirements.txt
+    ```
+3.  **Run the server:**
+    ```bash
+    uvicorn fastapi_app:app --host 0.0.0.0 --port 8000 --reload
+    ```
+    *The server should now be running at `http://localhost:8000`.*
 
-### `npm run eject`
+### 2. Frontend Setup (React)
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+1.  **Navigate to the frontend directory:**
+    *(Assuming the frontend files are near your `package.json`)*
+    ```bash
+    cd C:\Users\USER\Desktop\Projects_git\Model_API 
+    # OR: cd C:\Users\USER\Desktop\Projects_git\Model_API\back_front (if you prefer your custom folder)
+    ```
+2.  **Install Node dependencies:**
+    ```bash
+    npm install
+    ```
+3.  **Run the React development server:**
+    ```bash
+    npm run start
+    ```
+    *This command will open the web portal, typically at `http://localhost:3000`, which will automatically connect to your backend.*
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+## 📂 Project Structure (Required for `npm start`)
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+For the React development server (`react-scripts start`) to work correctly, your file structure must look like this:
