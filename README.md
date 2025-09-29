@@ -1,6 +1,7 @@
-# 🖼️ Image Classification API & Web Portal
+# 🖼️ Car Brand Recognition : Image Classification API & Web Portal
 
-This project provides a full-stack solution for image classification. It features a modern, responsive **React (JSX)** frontend built with **Tailwind CSS** for an aesthetic dark-mode look, and a high-performance **FastAPI** backend designed to serve a machine learning model (e.g., a TensorFlow/Keras image classifier).
+This project provides a full-stack solution for Car brand recognition: image classification and Finally learning Behind the web!
+It features a modern, responsive **React (JSX)** frontend built with **Tailwind CSS** for look, and a high-performance **FastAPI** backend designed to serve a machine learning model (e.g., a TensorFlow/Keras image classifier). The accuracy is not that great, its only 70% due to the computation, it only worked on my local CPU!!!! 
 
 ## 🚀 Key Features
 
