@@ -1,5 +1,5 @@
 
-
+# To run this API, use: uvicorn api:app --reload
 from fastapi import FastAPI, File, UploadFile
 from fastapi.middleware.cors import CORSMiddleware
 import uvicorn
@@ -24,7 +24,7 @@ app.add_middleware(
 
 
 
-MODEL_PATH = "C:/Users/USER/Desktop/Projects_git/22.keras"
+MODEL_PATH = "C:/Users/USER/Desktop/Projects_git/car_reco/saved models/22.keras"
 model = tf.keras.models.load_model(MODEL_PATH)
 
 class_names = [

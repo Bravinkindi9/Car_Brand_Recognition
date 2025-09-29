@@ -1,5 +1,8 @@
-import { useState, useEffect } from "react";
+// React hooks for state, side effects, and memoized functions
+import { useState, useEffect, useCallback } from "react";
+// Material-UI styling utilities
 import { makeStyles, withStyles } from "@material-ui/core/styles";
+// Material-UI components for layout and UI
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
@@ -9,15 +12,16 @@ import React from "react";
 import Card from "@material-ui/core/Card";
 import CardContent from "@material-ui/core/CardContent";
 import { Paper, CardActionArea, CardMedia, Grid, TableContainer, Table, TableBody, TableHead, TableRow, TableCell, Button, CircularProgress } from "@material-ui/core";
-import cblogo from "./Mazali Logo.png";          //imges to uplaod
+// Images for logo and background
+import cblogo from "./Mazali Logo.png";
 import image from "./back.jpeg";
+// Dropzone for file upload
 import { DropzoneArea } from 'material-ui-dropzone';
 import { common } from '@material-ui/core/colors';
 import Clear from '@material-ui/icons/Clear';
 
 
-
-
+// Custom styled button using Material-UI
 const ColorButton = withStyles((theme) => ({
   root: {
     color: theme.palette.getContrastText(common.white),
@@ -27,8 +31,11 @@ const ColorButton = withStyles((theme) => ({
     },
   },
 }))(Button);
+
+// Axios for HTTP requests
 const axios = require("axios").default;
 
+// Styles for all UI elements using Material-UI's makeStyles
 const useStyles = makeStyles((theme) => ({
   grow: {
     flexGrow: 1,
@@ -143,31 +150,44 @@ const useStyles = makeStyles((theme) => ({
     color: '#1fcb86ff !important',
   }
 }));
+// Main component for image upload and prediction UI
 export const ImageUpload = () => {
-  const classes = useStyles();
+  const classes = useStyles(); // Use the styles
+  // State for the selected file
   const [selectedFile, setSelectedFile] = useState();
+  // State for the preview image URL
   const [preview, setPreview] = useState();
+  // State for the prediction result from backend
   const [data, setData] = useState();
+  // State to check if an image is selected
   const [image, setImage] = useState(false);
+  // State for loading spinner
   const [isLoading, setIsloading] = useState(false);
+  // Confidence value for prediction
   let confidence = 0;
 
-  const sendFile = async () => {
+  // Function to send the selected file to the backend API
+  // Wrapped in useCallback to avoid React warnings
+  const sendFile = useCallback(async () => {
     if (image) {
       let formData = new FormData();
       formData.append("file", selectedFile);
+      // Log the API URL for debugging
+      console.log('API URL:', process.env.REACT_APP_API_URL);
+      // Send POST request to backend
       let res = await axios({
         method: "post",
         url: process.env.REACT_APP_API_URL,
         data: formData,
       });
+      // If successful, update the data state
       if (res.status === 200) {
         setData(res.data);
       }
       setIsloading(false);
     }
-  }
-
+  }, [image, selectedFile]);
+  // Function to clear all states (reset the UI)
   const clearData = () => {
     setData(null);
     setImage(false);
@@ -175,6 +195,7 @@ export const ImageUpload = () => {
     setPreview(null);
   };
 
+  // When a file is selected, create a preview URL for it
   useEffect(() => {
     if (!selectedFile) {
       setPreview(undefined);
@@ -184,14 +205,16 @@ export const ImageUpload = () => {
     setPreview(objectUrl);
   }, [selectedFile]);
 
+  // When preview changes (i.e., a new file is selected), send the file to the backend
   useEffect(() => {
     if (!preview) {
       return;
     }
     setIsloading(true);
     sendFile();
-  }, [preview]);
+  }, [preview, sendFile]);
 
+  // Handler for when a user selects a file in the dropzone
   const onSelectFile = (files) => {
     if (!files || files.length === 0) {
       setSelectedFile(undefined);
@@ -204,21 +227,32 @@ export const ImageUpload = () => {
     setImage(true);
   };
 
+  // Calculate confidence percentage if data is available
   if (data) {
     confidence = (parseFloat(data.confidence) * 100).toFixed(2);
   }
-
+useEffect(() => {
+  if (!preview) {
+    return;
+  }
+  setIsloading(true);
+  sendFile();
+}, [preview, sendFile]);
+  // Render the UI
   return (
     <React.Fragment>
+      {/* AppBar for the top navigation/header */}
       <AppBar position="static" className={classes.appbar}>
         <Toolbar>
           <Typography className={classes.title} variant="h6" noWrap>
             Car Brand Prediction: DL Project
           </Typography>
           <div className={classes.grow} />
+          {/* Logo avatar */}
           <Avatar src={cblogo}></Avatar>
         </Toolbar>
       </AppBar>
+      {/* Main container with background image */}
       <Container maxWidth={false} className={classes.mainContainer} disableGutters={true}>
         <Grid
           className={classes.gridContainer}
@@ -229,7 +263,9 @@ export const ImageUpload = () => {
           spacing={2}
         >
           <Grid item xs={12}>
+            {/* Card for image upload and results */}
             <Card className={`${classes.imageCard} ${!image ? classes.imageCardEmpty : ''}`}>
+              {/* Show preview if image is selected */}
               {image && <CardActionArea>
                 <CardMedia
                   className={classes.media}
@@ -239,6 +275,7 @@ export const ImageUpload = () => {
                 />
               </CardActionArea>
               }
+              {/* Show dropzone if no image is selected */}
               {!image && <CardContent className={classes.content}>
                 <DropzoneArea
                   acceptedFiles={['image/*']}
@@ -246,6 +283,7 @@ export const ImageUpload = () => {
                   onChange={onSelectFile}
                 />
               </CardContent>}
+              {/* Show prediction results if available */}
               {data && <CardContent className={classes.detail}>
                 <TableContainer component={Paper} className={classes.tableContainer}>
                   <Table className={classes.table} size="small" aria-label="simple table">
@@ -266,6 +304,7 @@ export const ImageUpload = () => {
                   </Table>
                 </TableContainer>
               </CardContent>}
+              {/* Show loading spinner while processing */}
               {isLoading && <CardContent className={classes.detail}>
                 <CircularProgress color="secondary" className={classes.loader} />
                 <Typography className={classes.title} variant="h6" noWrap>
@@ -274,9 +313,9 @@ export const ImageUpload = () => {
               </CardContent>}
             </Card>
           </Grid>
+          {/* Show clear button if data is available */}
           {data &&
             <Grid item className={classes.buttonGrid} >
-
               <ColorButton variant="contained" className={classes.clearButton} color="primary" component="span" size="large" onClick={clearData} startIcon={<Clear fontSize="large" />}>
                 Clear
               </ColorButton>
