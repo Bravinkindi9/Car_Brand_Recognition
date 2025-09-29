@@ -9,7 +9,7 @@ This project provides a full-stack solution for image classification. It feature
 * **React Frontend:** Clean, modern, single-page application (SPA) for file upload, preview, and results display.
 * **Tailwind CSS:** Fully responsive, dark-theme UI for a polished, professional user experience.
 
-## 🛠️ Technology Stack
+##  Technology Stack
 
 | Component | Technology | Role |
 | :--- | :--- | :--- |
@@ -53,8 +53,8 @@ You need the following installed on your system:
 1.  **Navigate to the frontend directory:**
     *(Assuming the frontend files are near your `package.json`)*
     ```bash
-    cd C:\Users\USER\Desktop\Projects_git\Model_API 
-    # OR: cd C:\Users\USER\Desktop\Projects_git\Model_API\back_front (if you prefer your custom folder)
+    cd C:...\Projects_git\Model_API 
+    # OR: cd ..\Projects_git\Model_API\back_front (if you prefer your custom folder)
     ```
 2.  **Install Node dependencies:**
     ```bash
@@ -65,7 +65,22 @@ You need the following installed on your system:
     npm run start
     ```
     *This command will open the web portal, typically at `http://localhost:3000`, which will automatically connect to your backend.*
+## ⚙️ API Endpoint
 
-## 📂 Project Structure (Required for `npm start`)
+The front-end is configured to communicate with the following endpoint:
 
-For the React development server (`react-scripts start`) to work correctly, your file structure must look like this:
+| Method | Endpoint | Description |
+| :--- | :--- | :--- |
+| **POST** | `/predict` | Receives a `multipart/form-data` image file and returns classification results. |
+| **GET** | `/` | Base health check (handled by Uvicorn/FastAPI). |
+
+## 💡 Troubleshooting
+
+| Error Message | Cause | Solution |
+| :--- | :--- | :--- |
+| `Could not find a required file. Name: index.html... public` | Incorrect project structure for `react-scripts`. | Ensure **`index.html`** is placed inside the **`public`** folder, and **`App.jsx`** is in the **`src`** folder. |
+| `ReferenceError: process is not defined` | React code trying to read environment variables (`process.env`) in a browser context. | This was fixed by hardcoding the API URL (`http://localhost:8000`) directly in `App.jsx`. |
+| `Connection Error` or `Failed to fetch` | The Python backend is not running or is on a different port. | Run the backend first (`uvicorn ... --port 8000`). Check for firewall issues. |
+| TensorFlow Warning: `To enable the following instructions: SSE3...` | Generic TensorFlow installation. | This is a **safe warning**; ignore it unless you require extreme performance optimization. |
+
+
