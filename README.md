@@ -73,14 +73,3 @@ The front-end is configured to communicate with the following endpoint:
 | :--- | :--- | :--- |
 | **POST** | `/predict` | Receives a `multipart/form-data` image file and returns classification results. |
 | **GET** | `/` | Base health check (handled by Uvicorn/FastAPI). |
-
-## 💡 Troubleshooting
-
-| Error Message | Cause | Solution |
-| :--- | :--- | :--- |
-| `Could not find a required file. Name: index.html... public` | Incorrect project structure for `react-scripts`. | Ensure **`index.html`** is placed inside the **`public`** folder, and **`App.jsx`** is in the **`src`** folder. |
-| `ReferenceError: process is not defined` | React code trying to read environment variables (`process.env`) in a browser context. | This was fixed by hardcoding the API URL (`http://localhost:8000`) directly in `App.jsx`. |
-| `Connection Error` or `Failed to fetch` | The Python backend is not running or is on a different port. | Run the backend first (`uvicorn ... --port 8000`). Check for firewall issues. |
-| TensorFlow Warning: `To enable the following instructions: SSE3...` | Generic TensorFlow installation. | This is a **safe warning**; ignore it unless you require extreme performance optimization. |
-
-
